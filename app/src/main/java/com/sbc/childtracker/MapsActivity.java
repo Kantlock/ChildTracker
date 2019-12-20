@@ -43,13 +43,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
           new MarkerOptions()
               .position(CAALAR)
               .title("CaalaR in the HousE")
-              .snippet("HZ MUHAMMED OKUMA BILMIYORMUS"));
+              .snippet("yolların ustasıyım KARILARIN hastasıyım"));
 
       mMap.addMarker(
           new MarkerOptions()
               .position(SaiD)
               .title("SaiDoW in the HousE")
-              .snippet("BANA VAR DENDI E BANA VAR DENDI"));
+              .snippet("<3"));
 
       PolylineOptions options =
           new PolylineOptions()
