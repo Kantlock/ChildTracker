@@ -1,5 +1,6 @@
 package com.sbc.childtracker;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -41,7 +43,7 @@ public class LoginActivity extends AppCompatActivity {
     authToken.ifPresent(
         token -> {
           RequestQueue queue = Volley.newRequestQueue(this);
-          String url = "http://192.168.1.41:3000/api/login";
+          String url = "http://192.168.1.29:3000/api/login";
 
           StringRequest stringRequest =
               new StringRequest(
@@ -52,6 +54,9 @@ public class LoginActivity extends AppCompatActivity {
                     public void onResponse(String response) {
                       if (response.contains("Success")) {
                         Log.e(TAG, "Success, switching to google maps activity");
+
+                        Intent intent = new Intent(LoginActivity.this, MapsActivity.class);
+                        startActivity(intent);
                       }
                     }
                   },
@@ -65,14 +70,16 @@ public class LoginActivity extends AppCompatActivity {
                 public Map<String, String> getParams() {
                   Map<String, String> params = new HashMap<>();
 
-                  SharedPreferences pref =
-                      getApplicationContext().getSharedPreferences("MyPref", 0);
-
                   params.put("auth", authToken.get());
 
                   return params; // return the parameters
                 }
               };
+
+          stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                  30000,
+                  DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                  DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
           queue.add(stringRequest);
         });
@@ -96,7 +103,7 @@ public class LoginActivity extends AppCompatActivity {
 
   private void test() {
     RequestQueue queue = Volley.newRequestQueue(this);
-    String url = "http://192.168.1.41:3000/api/login";
+    String url = "http://192.168.1.29:3000/api/login";
 
     StringRequest stringRequest =
         new StringRequest(
@@ -116,6 +123,11 @@ public class LoginActivity extends AppCompatActivity {
                       "auth",
                       response.substring(
                           response.indexOf("auth") + 7, response.lastIndexOf('}') - 1));
+
+                  editor.commit();
+
+                  Intent intent = new Intent(LoginActivity.this, MapsActivity.class);
+                  startActivity(intent);
                 }
               }
             },
@@ -132,17 +144,21 @@ public class LoginActivity extends AppCompatActivity {
             params.put("username", editText_username.getText().toString());
             params.put("password", editText_password.getText().toString());
 
-            SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0);
-
-            Optional<String> authToken = Optional.ofNullable(pref.getString("auth", null));
-
-            authToken.ifPresent(token -> params.put("auth", token));
-
             return params; // return the parameters
           }
         };
 
     // Add the request to the RequestQueue.
     queue.add(stringRequest);
+  }
+
+  @Override
+  public void onBackPressed() {
+    finish();
+
+    Intent intent = new Intent(this, MainActivity.class);
+    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    startActivity(intent);
   }
 }
