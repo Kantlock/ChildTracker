@@ -1,6 +1,7 @@
 package com.sbc.childtracker;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -83,4 +84,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
     mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(CAALAR, 11));
   }
+
+  /*@Override
+  public void onBackPressed() {
+    finish();
+
+    Intent intent = new Intent(this, MainActivity.class);
+    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+    finish();
+    startActivity(intent);
+  }*/
 }

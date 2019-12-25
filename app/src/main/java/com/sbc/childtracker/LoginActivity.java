@@ -43,7 +43,7 @@ public class LoginActivity extends AppCompatActivity {
     authToken.ifPresent(
         token -> {
           RequestQueue queue = Volley.newRequestQueue(this);
-          String url = "http://192.168.1.29:3000/api/login";
+          String url = "http://10.101.22.195:3000/api/login";
 
           StringRequest stringRequest =
               new StringRequest(
@@ -77,8 +77,8 @@ public class LoginActivity extends AppCompatActivity {
               };
 
           stringRequest.setRetryPolicy(new DefaultRetryPolicy(
-                  30000,
-                  DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                  0,
+                  -1,
                   DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
           queue.add(stringRequest);
@@ -96,14 +96,14 @@ public class LoginActivity extends AppCompatActivity {
         new View.OnClickListener() {
           @Override
           public void onClick(View view) {
-            test();
+            sendLoginRequest();
           }
         });
   }
 
-  private void test() {
+  private void sendLoginRequest() {
     RequestQueue queue = Volley.newRequestQueue(this);
-    String url = "http://192.168.1.29:3000/api/login";
+    String url = "http://10.101.22.195:3000/api/login";
 
     StringRequest stringRequest =
         new StringRequest(
@@ -152,7 +152,7 @@ public class LoginActivity extends AppCompatActivity {
     queue.add(stringRequest);
   }
 
-  @Override
+  /*@Override
   public void onBackPressed() {
     finish();
 
@@ -160,5 +160,5 @@ public class LoginActivity extends AppCompatActivity {
     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
     startActivity(intent);
-  }
+  }*/
 }
