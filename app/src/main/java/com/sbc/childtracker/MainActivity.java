@@ -10,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity;
 public class MainActivity extends AppCompatActivity {
 
   private Button loginButton;
-  private Button registerButton;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -22,12 +21,11 @@ public class MainActivity extends AppCompatActivity {
 
   private void init(){
     loginButton = findViewById(R.id.loginButton);
-    registerButton = findViewById(R.id.registerButton);
 
     loginButton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-        Intent intent = new Intent(MainActivity.this, MapsActivity.class);
+        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
         startActivity(intent);
       }
     });
