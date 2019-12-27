@@ -28,6 +28,7 @@ public class LoginActivity extends AppCompatActivity {
   private Button button_send;
 
   private static final String TAG = LoginActivity.class.getSimpleName();
+  private static final String serverAddress = "http://192.168.1.23:3000";
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +42,7 @@ public class LoginActivity extends AppCompatActivity {
     authToken.ifPresent(
         token -> {
           RequestQueue queue = Volley.newRequestQueue(this);
-          String url = "http://192.168.1.41:3000/api/login";
+          String url = serverAddress + "/api/login";
 
           StringRequest stringRequest =
               new StringRequest(
@@ -96,7 +97,7 @@ public class LoginActivity extends AppCompatActivity {
 
   private void test() {
     RequestQueue queue = Volley.newRequestQueue(this);
-    String url = "http://192.168.1.41:3000/api/login";
+    String url = serverAddress + "/api/login";
 
     StringRequest stringRequest =
         new StringRequest(
