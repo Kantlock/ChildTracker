@@ -34,10 +34,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
   @Override
   public void onMapReady(GoogleMap googleMap) {
     mMap = googleMap;
-    LatLng childLocation = new LatLng(39.8528257, 32.8436875);
+    LatLng childLocation = getLocationParameters();
 
     if (mMap != null) {
-
       mMap.addMarker(
           new MarkerOptions()
               .position(childLocation)
@@ -65,5 +64,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
       }
     }
     mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(childLocation, 11));
+  }
+
+  private LatLng getLocationParameters(){
+    return new LatLng(39.8528257, 32.8436875);
   }
 }
