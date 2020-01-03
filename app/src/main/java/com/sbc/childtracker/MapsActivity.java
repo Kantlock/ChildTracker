@@ -35,32 +35,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
   @Override
   public void onMapReady(GoogleMap googleMap) {
     mMap = googleMap;
-
-    LatLng CAALAR = new LatLng(39.8755761, 32.83285);
-    LatLng SaiD = new LatLng(39.8528257, 32.8436875);
+    LatLng childLocation = getLocationParameters();
 
     if (mMap != null) {
       mMap.addMarker(
           new MarkerOptions()
-              .position(CAALAR)
-              .title("CaalaR in the HousE")
-              .snippet("HZ MUHAMMED OKUMA BILMIYORMUS"));
-
-      mMap.addMarker(
-          new MarkerOptions()
-              .position(SaiD)
-              .title("SaiDoW in the HousE")
-              .snippet("BANA VAR DENDI E BANA VAR DENDI"));
-
-      PolylineOptions options =
-          new PolylineOptions()
-              .add(CAALAR)
-              .add(SaiD)
-              .width(7)
-              .color(Color.GREEN)
-              .visible(true)
-              .geodesic(true);
-      mMap.addPolyline(options);
+              .position(childLocation)
+              .title("Child is here!")
+              .snippet("Child"));
 
       mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID); // MAP TYPE
 
@@ -82,7 +64,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             1530);
       }
     }
-    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(CAALAR, 11));
+    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(childLocation, 11));
+  }
+
+  private LatLng getLocationParameters(){
+    return new LatLng(39.8528257, 32.8436875);
   }
 
   /*@Override
