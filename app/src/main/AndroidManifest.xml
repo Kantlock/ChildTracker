@@ -29,8 +29,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".MapsActivity" />
-        <activity android:name=".RegisterActivity" />
+
+        <activity android:name=".RegisterActivity"
+                android:windowSoftInputMode="adjustPan"/>
     </application>
 
 </manifest>
