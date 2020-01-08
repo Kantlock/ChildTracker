@@ -24,6 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="80dp"
+            android:maxLines="1"
             android:ems="10"/>
     <TextView
             android:id="@+id/secTxt"
@@ -36,6 +37,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="80dp"
+            android:maxLines="1"
             android:ems="10" />
     <TextView
             android:id="@+id/phoneTxt"
@@ -49,6 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="80dp"
             android:inputType="phone"
+            android:maxLines="1"
             android:ems="10" />
     <TextView
             android:id="@+id/emailTxt"
@@ -62,6 +65,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="80dp"
             android:inputType="textEmailAddress"
+            android:maxLines="1"
             android:ems="10" />
     <TextView
             android:id="@+id/pswdTxt"
@@ -75,6 +79,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="80dp"
             android:inputType="textPassword"
+            android:maxLines="1"
             android:ems="10" />
     <Button
             android:id="@+id/registerButton"

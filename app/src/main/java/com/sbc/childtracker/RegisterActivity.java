@@ -1,8 +1,12 @@
 package com.sbc.childtracker;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -15,7 +19,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
 import com.sbc.childtracker.requests.CustomRequest;
-import com.sbc.childtracker.requests.ResponseMessage;
 
 import org.json.JSONObject;
 
@@ -48,13 +51,11 @@ public class RegisterActivity extends AppCompatActivity {
     editText_phone = findViewById(R.id.phoneText);
     editText_email = findViewById(R.id.emailText);
     editText_password = findViewById(R.id.passwordText);
-
     button_register = findViewById(R.id.registerButton);
 
     button_register.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-
         makeRegisterRequest();
       }
     });
@@ -95,11 +96,23 @@ public class RegisterActivity extends AppCompatActivity {
     queue.add(customRequest);
   }
 
-  private void showSuccessMessage(){
-    Toast.makeText(getApplicationContext(), "Successfully registered", Toast.LENGTH_LONG).show();
+  private void showSuccessMessage() {
+    Toast.makeText(getApplicationContext(), "Successfully registered, please login now", Toast.LENGTH_LONG).show();
+
+    Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+    startActivity(intent);
   }
 
-  private void showFailedMessage(){
+  private void showFailedMessage() {
     Toast.makeText(getApplicationContext(), "Error while registering, please try again.", Toast.LENGTH_LONG).show();
+  }
+
+  @Override
+  public boolean dispatchTouchEvent(MotionEvent ev) {
+    if (getCurrentFocus() != null) {
+      InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+      imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+    }
+    return super.dispatchTouchEvent(ev);
   }
 }
