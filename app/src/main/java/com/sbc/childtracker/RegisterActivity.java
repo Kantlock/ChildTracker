@@ -22,6 +22,7 @@ import com.sbc.childtracker.requests.CustomRequest;
 
 import org.json.JSONObject;
 
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,7 +35,7 @@ public class RegisterActivity extends AppCompatActivity {
   private EditText editText_password;
   private Button button_register;
 
-  private static final String serverAddress = "http://192.168.1.23:3000";
+  private static final String serverAddress = "http://192.168.1.22:3000";
   private static final String TAG = RegisterActivity.class.getSimpleName();
 
   @Override
@@ -53,12 +54,13 @@ public class RegisterActivity extends AppCompatActivity {
     editText_password = findViewById(R.id.passwordText);
     button_register = findViewById(R.id.registerButton);
 
-    button_register.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        makeRegisterRequest();
-      }
-    });
+    button_register.setOnClickListener(
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View v) {
+            makeRegisterRequest();
+          }
+        });
   }
 
   private void makeRegisterRequest() {
@@ -68,43 +70,54 @@ public class RegisterActivity extends AppCompatActivity {
 
     params.put("name", editText_name.getText().toString());
     params.put("surname", editText_surname.getText().toString());
-    params.put("phone", editText_phone.getText().toString());
     params.put("email", editText_email.getText().toString());
+    params.put("phone", editText_phone.getText().toString());
     params.put("password", editText_password.getText().toString());
 
-    Response.Listener<JSONObject> successListener = new Response.Listener<JSONObject>() {
-      @Override
-      public void onResponse(JSONObject response) {
-        Log.d(TAG, "Successful:\t" + response.toString());
+    Response.Listener<JSONObject> successListener =
+        new Response.Listener<JSONObject>() {
+          @Override
+          public void onResponse(JSONObject response) {
+            Log.d(TAG, "Successful:\t" + response.toString());
 
-        showSuccessMessage();
-      }
-    };
+            showSuccessMessage();
+          }
+        };
 
-    Response.ErrorListener errorListener = new Response.ErrorListener() {
-      @Override
-      public void onErrorResponse(VolleyError error) {
-        Log.e(TAG, "Error:\t" + error.getMessage());
+    Response.ErrorListener errorListener =
+        new Response.ErrorListener() {
+          @Override
+          public void onErrorResponse(VolleyError error) {
+            Log.e(TAG, "Error: " + new String(error.networkResponse.data, StandardCharsets.UTF_8));
 
-        showFailedMessage();
-      }
-    };
+            showFailedMessage();
+          }
+        };
 
-    CustomRequest customRequest = new CustomRequest(Request.Method.POST, url, params, successListener, errorListener);
+    CustomRequest customRequest =
+        new CustomRequest(Request.Method.POST, url, params, successListener, errorListener);
     RequestQueue queue = Volley.newRequestQueue(this);
 
     queue.add(customRequest);
   }
 
   private void showSuccessMessage() {
-    Toast.makeText(getApplicationContext(), "Successfully registered, please login now", Toast.LENGTH_LONG).show();
+    Toast.makeText(
+            getApplicationContext(), "Successfully registered, please login now", Toast.LENGTH_LONG)
+        .show();
 
     Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+    intent.putExtra("FromRegister", true);
+
     startActivity(intent);
   }
 
   private void showFailedMessage() {
-    Toast.makeText(getApplicationContext(), "Error while registering, please try again.", Toast.LENGTH_LONG).show();
+    Toast.makeText(
+            getApplicationContext(),
+            "Error while registering, please try again.",
+            Toast.LENGTH_LONG)
+        .show();
   }
 
   @Override

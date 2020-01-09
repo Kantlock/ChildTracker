@@ -19,15 +19,22 @@ public class CustomRequest extends Request<JSONObject> {
   private Listener<JSONObject> listener;
   private Map<String, String> params;
 
-  public CustomRequest(String url, Map<String, String> params,
-                       Listener<JSONObject> responseListener, ErrorListener errorListener) {
+  public CustomRequest(
+      String url,
+      Map<String, String> params,
+      Listener<JSONObject> responseListener,
+      ErrorListener errorListener) {
     super(Method.GET, url, errorListener);
     this.listener = responseListener;
     this.params = params;
   }
 
-  public CustomRequest(int method, String url, Map<String, String> params,
-                       Listener<JSONObject> responseListener, ErrorListener errorListener) {
+  public CustomRequest(
+      int method,
+      String url,
+      Map<String, String> params,
+      Listener<JSONObject> responseListener,
+      ErrorListener errorListener) {
     super(method, url, errorListener);
     this.listener = responseListener;
     this.params = params;
@@ -40,10 +47,10 @@ public class CustomRequest extends Request<JSONObject> {
   @Override
   protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
     try {
-      String jsonString = new String(response.data,
-              HttpHeaderParser.parseCharset(response.headers));
-      return Response.success(new JSONObject(jsonString),
-              HttpHeaderParser.parseCacheHeaders(response));
+      String jsonString =
+          new String(response.data, HttpHeaderParser.parseCharset(response.headers));
+      return Response.success(
+          new JSONObject(jsonString), HttpHeaderParser.parseCacheHeaders(response));
     } catch (UnsupportedEncodingException e) {
       return Response.error(new ParseError(e));
     } catch (JSONException je) {

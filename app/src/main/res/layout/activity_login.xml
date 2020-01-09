@@ -15,33 +15,33 @@
             android:id="@+id/fstTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="100dp"
+            android:layout_marginLeft="80dp"
             android:layout_marginTop="20dp"
             android:text="Username"/>
     <EditText
-            android:id="@+id/usernameText"
+            android:id="@+id/emailText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="100dp"
-            android:ems="10"/>
+            android:layout_marginLeft="80dp"
+            android:ems="14"/>
     <TextView
             android:id="@+id/secTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Password"
-            android:layout_marginLeft="100dp" />
+            android:layout_marginLeft="80dp" />
     <EditText
             android:id="@+id/passwordText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="100dp"
+            android:layout_marginLeft="80dp"
             android:inputType="textPassword"
-            android:ems="10" />
+            android:ems="14" />
     <Button
             android:id="@+id/sendButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="100dp"
+            android:layout_marginLeft="80dp"
             android:text="Login" />
     <TextView android:id="@+id/lnkRegister"
             android:layout_width="match_parent"
