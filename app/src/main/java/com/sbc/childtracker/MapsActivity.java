@@ -38,7 +38,7 @@ import java.util.TimerTask;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
   private static final String TAG = MapsActivity.class.getSimpleName();
-  private static final String serverAddress = "http://192.168.1.22:3000";
+  private static final String serverAddress = "http://192.168.1.25:3000";
 
   private GoogleMap mMap;
   private Marker positionMarker;
@@ -49,7 +49,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_maps);
     SupportMapFragment mapFragment =
-        (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+            (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
     mapFragment.getMapAsync(this);
   }
 
@@ -61,121 +61,121 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     if (mMap != null) {
       positionMarker =
-          mMap.addMarker(
-              new MarkerOptions().position(position).title("CaalaR in the HousE").snippet(" "));
+              mMap.addMarker(
+                      new MarkerOptions().position(position).title("Sait in the HousE").snippet(" "));
 
       mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID); // MAP TYPE
 
-      mMap.setTrafficEnabled(true); // TRAFFIC
+      //mMap.setTrafficEnabled(true); // TRAFFIC
 
       if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
               == PackageManager.PERMISSION_GRANTED
-          && ContextCompat.checkSelfPermission(
-                  this, android.Manifest.permission.ACCESS_COARSE_LOCATION)
+              && ContextCompat.checkSelfPermission(
+              this, android.Manifest.permission.ACCESS_COARSE_LOCATION)
               == PackageManager.PERMISSION_GRANTED) {
         mMap.setMyLocationEnabled(true);
         mMap.getUiSettings().setMyLocationButtonEnabled(true);
       } else {
         ActivityCompat.requestPermissions(
-            this,
-            new String[] {
-              Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION
-            },
-            1530);
+                this,
+                new String[] {
+                        Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION
+                },
+                1530);
       }
     }
-    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 18));
+    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 50));
 
     getLocationInfoFromApi();
   }
 
   private void getLocationInfoFromApi() {
     TimerTask repeatedTask =
-        new TimerTask() {
-          @Override
-          public void run() {
+            new TimerTask() {
+              @Override
+              public void run() {
 
-            runOnUiThread(
-                new Runnable() {
-                  @Override
-                  public void run() {
+                runOnUiThread(
+                        new Runnable() {
+                          @Override
+                          public void run() {
 
-                    SharedPreferences pref =
-                        getApplicationContext().getSharedPreferences("MyPref", 0);
+                            SharedPreferences pref =
+                                    getApplicationContext().getSharedPreferences("MyPref", 0);
 
-                    Optional<String> authToken = Optional.ofNullable(pref.getString("auth", null));
+                            Optional<String> authToken = Optional.ofNullable(pref.getString("auth", null));
 
-                    authToken.ifPresent(
-                        token -> {
-                          String url = serverAddress + "/api/user/coordinates";
+                            authToken.ifPresent(
+                                    token -> {
+                                      String url = serverAddress + "/api/user/coordinates";
 
-                          Map<String, String> params = new HashMap<>();
+                                      Map<String, String> params = new HashMap<>();
 
-                          params.put("auth", token);
+                                      params.put("auth", token);
 
-                          Response.Listener<JSONObject> successListener =
-                              new Response.Listener<JSONObject>() {
-                                @Override
-                                public void onResponse(JSONObject response) {
-                                  try {
-                                    double latitude = response.getDouble("latitude");
-                                    double longtitude = response.getDouble("longtitude");
+                                      Response.Listener<JSONObject> successListener =
+                                              new Response.Listener<JSONObject>() {
+                                                @Override
+                                                public void onResponse(JSONObject response) {
+                                                  try {
+                                                    double latitude = response.getDouble("latitude");
+                                                    double longitude = response.getDouble("longitude");
 
-                                    position = new LatLng(longtitude, latitude);
+                                                    position = new LatLng(latitude, longitude);
 
-                                    Log.d(TAG, position.toString());
-                                  } catch (JSONException e) {
-                                    e.printStackTrace();
-                                  }
-                                }
-                              };
+                                                    Log.d(TAG, position.toString());
+                                                  } catch (JSONException e) {
+                                                    e.printStackTrace();
+                                                  }
+                                                }
+                                              };
 
-                          Response.ErrorListener errorListener =
-                              new Response.ErrorListener() {
-                                @Override
-                                public void onErrorResponse(VolleyError error) {
-                                  Log.e(
-                                      TAG,
-                                      "Error: "
-                                          + new String(
-                                              error.networkResponse.data, StandardCharsets.UTF_8));
-                                }
-                              };
+                                      Response.ErrorListener errorListener =
+                                              new Response.ErrorListener() {
+                                                @Override
+                                                public void onErrorResponse(VolleyError error) {
+                                                  Log.e(
+                                                          TAG,
+                                                          "Error: "
+                                                                  + new String(
+                                                                  error.networkResponse.data, StandardCharsets.UTF_8));
+                                                }
+                                              };
 
-                          RequestQueue queue = Volley.newRequestQueue(MapsActivity.this);
-                          CustomRequest customRequest =
-                              new CustomRequest(
-                                  Request.Method.POST, url, params, successListener, errorListener);
+                                      RequestQueue queue = Volley.newRequestQueue(MapsActivity.this);
+                                      CustomRequest customRequest =
+                                              new CustomRequest(
+                                                      Request.Method.POST, url, params, successListener, errorListener);
 
-                          queue
-                              .add(customRequest)
-                              .setRetryPolicy(
-                                  new RetryPolicy() {
-                                    @Override
-                                    public int getCurrentTimeout() {
-                                      return 5000;
-                                    }
+                                      queue
+                                              .add(customRequest)
+                                              .setRetryPolicy(
+                                                      new RetryPolicy() {
+                                                        @Override
+                                                        public int getCurrentTimeout() {
+                                                          return 5000;
+                                                        }
 
-                                    @Override
-                                    public int getCurrentRetryCount() {
-                                      return 0; // retry turn off
-                                    }
+                                                        @Override
+                                                        public int getCurrentRetryCount() {
+                                                          return 0; // retry turn off
+                                                        }
 
-                                    @Override
-                                    public void retry(VolleyError error) throws VolleyError {}
-                                  });
+                                                        @Override
+                                                        public void retry(VolleyError error) throws VolleyError {}
+                                                      });
+                                    });
+
+                            positionMarker.setPosition(position);
+                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 18));
+                          }
                         });
-
-                    positionMarker.setPosition(position);
-                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 18));
-                  }
-                });
-          }
-        };
+              }
+            };
 
     Timer timer = new Timer("Timer");
     long delay = 5000L;
-    long period = 10000L;
+    long period = 15000L;
 
     timer.scheduleAtFixedRate(repeatedTask, delay, period);
   }

@@ -35,7 +35,7 @@ public class RegisterActivity extends AppCompatActivity {
   private EditText editText_password;
   private Button button_register;
 
-  private static final String serverAddress = "http://192.168.1.22:3000";
+  private static final String serverAddress = "http://192.168.1.25:3000";
   private static final String TAG = RegisterActivity.class.getSimpleName();
 
   @Override

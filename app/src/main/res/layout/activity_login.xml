@@ -1,40 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:orientation="vertical" android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    <TextView
-            android:id="@+id/loginscrn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="80dp"
-            android:text="Login"
-            android:textSize="25dp"
-            android:textStyle="bold"
-            android:layout_gravity="center"/>
+        android:layout_height="match_parent"
+        android:background="@drawable/gradient">
+
+    <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="261dp"
+            android:layout_height="157dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="40dp"
+            app:srcCompat="@drawable/logo" />
+
     <TextView
             android:id="@+id/fstTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="80dp"
+            android:textColor="#FFFFFF"
             android:layout_marginTop="20dp"
-            android:text="Username"/>
+            android:text="@string/email" />
     <EditText
             android:id="@+id/emailText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="80dp"
+            android:textColor="#FFFFFF"
+            android:layout_marginRight="80dp"
             android:ems="14"/>
     <TextView
             android:id="@+id/secTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Password"
+            android:textColor="#FFFFFF"
             android:layout_marginLeft="80dp" />
     <EditText
             android:id="@+id/passwordText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"
             android:layout_marginLeft="80dp"
+            android:layout_marginRight="80dp"
             android:inputType="textPassword"
             android:ems="14" />
     <Button
@@ -50,5 +58,6 @@
             android:text="New to Child Tracker? Register here"
             android:gravity="center"
             android:textSize="20dp"
-            android:textColor="#3F51B5"/>
+            android:textColor="#EDFD00"/>
+
 </LinearLayout>

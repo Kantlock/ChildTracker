@@ -39,14 +39,14 @@ public class LoginActivity extends AppCompatActivity {
   private Button button_send;
 
   private static final String TAG = LoginActivity.class.getSimpleName();
-  private static final String serverAddress = "http://192.168.1.22:3000";
+  private static final String serverAddress = "http://192.168.1.25:3000";
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_login);
 
-    if (!getIntent().hasExtra("FromRegister")) checkWithAuthToken();
+    //if (!getIntent().hasExtra("FromRegister")) checkWithAuthToken();
 
     init();
   }
