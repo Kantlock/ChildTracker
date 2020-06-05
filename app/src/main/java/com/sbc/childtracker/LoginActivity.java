@@ -39,7 +39,7 @@ public class LoginActivity extends AppCompatActivity {
   private Button button_send;
 
   private static final String TAG = LoginActivity.class.getSimpleName();
-  private static final String serverAddress = "http://192.168.1.25:3000";
+  private static final String serverAddress = "https://sbcchildtrackerapi.azurewebsites.net";
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +49,9 @@ public class LoginActivity extends AppCompatActivity {
     //if (!getIntent().hasExtra("FromRegister")) checkWithAuthToken();
 
     init();
+
+    //Intent intent = new Intent(LoginActivity.this, MapsActivity.class);
+    //startActivity(intent);
   }
 
   private void init() {

@@ -38,7 +38,7 @@ import java.util.TimerTask;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
   private static final String TAG = MapsActivity.class.getSimpleName();
-  private static final String serverAddress = "http://192.168.1.25:3000";
+  private static final String serverAddress = "https://sbcchildtrackerapi.azurewebsites.net";
 
   private GoogleMap mMap;
   private Marker positionMarker;
@@ -62,9 +62,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     if (mMap != null) {
       positionMarker =
               mMap.addMarker(
-                      new MarkerOptions().position(position).title("Sait in the HousE").snippet(" "));
+                      new MarkerOptions().position(position).title("Ali").snippet(" "));
 
-      mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID); // MAP TYPE
+      mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL); // MAP TYPE
 
       //mMap.setTrafficEnabled(true); // TRAFFIC
 
@@ -84,7 +84,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 1530);
       }
     }
-    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 50));
+    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 18));
 
     getLocationInfoFromApi();
   }
@@ -175,7 +175,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     Timer timer = new Timer("Timer");
     long delay = 5000L;
-    long period = 15000L;
+    long period = 5000L;
 
     timer.scheduleAtFixedRate(repeatedTask, delay, period);
   }
