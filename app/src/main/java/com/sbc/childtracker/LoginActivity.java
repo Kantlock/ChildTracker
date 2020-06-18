@@ -46,12 +46,9 @@ public class LoginActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_login);
 
-    //if (!getIntent().hasExtra("FromRegister")) checkWithAuthToken();
+    if (!getIntent().hasExtra("FromRegister")) checkWithAuthToken();
 
     init();
-
-    //Intent intent = new Intent(LoginActivity.this, MapsActivity.class);
-    //startActivity(intent);
   }
 
   private void init() {

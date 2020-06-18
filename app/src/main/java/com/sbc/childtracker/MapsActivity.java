@@ -66,8 +66,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
       mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL); // MAP TYPE
 
-      //mMap.setTrafficEnabled(true); // TRAFFIC
-
       if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
               == PackageManager.PERMISSION_GRANTED
               && ContextCompat.checkSelfPermission(
@@ -179,17 +177,5 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     timer.scheduleAtFixedRate(repeatedTask, delay, period);
   }
-
-  /*@Override
-  public void onBackPressed() {
-    finish();
-
-    Intent intent = new Intent(this, MainActivity.class);
-    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
-    finish();
-    startActivity(intent);
-  }*/
 
 }
