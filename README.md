@@ -1,5 +1,3 @@
 # ChildTracker
 
-Front-end side of the child tracker project.
-
-The project is completed.
+Graduation Project: Android application of the child tracker project.
